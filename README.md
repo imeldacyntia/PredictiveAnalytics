@@ -33,7 +33,7 @@ Untuk mencapai tujuan tersebut, pendekatan berikut akan dilakukan:
 
 - Menerapkan beberapa algoritma regresi lainnya seperti Random Forest Regressor dan Gradient Boosting Regressor untuk melihat performa yang lebih baik.
 
-- Menggunakan metrik evaluasi seperti Mean Absolute Error (MAE), Mean Squared Error (MSE), dan R-squared (R²) untuk mengukur akurasi dan efektivitas model.
+- Menggunakan metrik evaluasi seperti Mean Squared Error (MSE) untuk mengukur akurasi dan efektivitas model.
 
 ## Data Understanding
 
