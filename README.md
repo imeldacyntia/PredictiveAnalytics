@@ -29,9 +29,7 @@ Menurut laporan World Health Organization (2023), pengeluaran kesehatan global m
 
 Untuk mencapai tujuan tersebut, pendekatan berikut akan dilakukan:
 
-- Mengembangkan baseline model regresi linier (Linear Regression) sebagai pembanding awal.
-
-- Menerapkan beberapa algoritma regresi lainnya seperti Random Forest Regressor dan Gradient Boosting Regressor untuk melihat performa yang lebih baik.
+- Menerapkan beberapa algoritma regresi lainnya seperti K-Nearest Neighbor, Random Forest Regressor dan Gradient Boosting Regressor untuk melihat performa yang lebih baik.
 
 - Menggunakan metrik evaluasi seperti Mean Squared Error (MSE) untuk mengukur akurasi dan efektivitas model.
 
