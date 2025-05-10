@@ -11,7 +11,7 @@ Studi oleh Alhassan dan Batrushi (2022) menunjukkan bahwa penerapan model machin
 ### Referensi
 
 * Alhassan, I., & Batrushi, B. (2022). Health Insurance Premium Prediction Using Machine Learning Techniques. International Journal of Environmental Research and Public Health, 19(13), 7898. [https://doi.org/10.3390/ijerph19137898](https://doi.org/10.3390/ijerph19137898)
-* World Health Organization. (2023). Global spending on health: Rising to the pandemic’s challenges. [https://www.who.int/publications/i/item/9789240076643](https://www.who.int/publications/i/item/9789240076643)
+* World Health Organization. (2023). Global spending on health: Rising to the pandemic’s challenges. [https://www.who.int](https://www.who.int)
 
 ## Business Understanding
 
