@@ -54,8 +54,6 @@ Pengecekan dan penanganan outlier dilakukan khususnya pada fitur numerikal mengg
 * region: Wilayah tempat tinggal di AS (southwest, southeast, northwest, northeast).
 * charges: Biaya yang dibebankan oleh asuransi (dalam USD) – ini adalah target prediksi.
 
-### Rubrik/Kriteria Tambahan (Opsional):
-
 Beberapa tahapan eksplorasi data telah dilakukan untuk memahami karakteristik dataset, antara lain:
 
   #### 1. Pembersihan data dilakukan dengan menghapus outlier berdasarkan boxplot dan metode IQR.
@@ -206,13 +204,18 @@ Berdasarkan analisis feature importance, fitur yang paling memengaruhi biaya asu
 
 ![Feature_Importance](img/Feature_Importance.png)
 
-##################################BATAS SAYA KERJAKAN===================
-
 **Evaluasi Terhadap Business Understanding**
-- Menjawab Problem Statement: Model yang dibuat berhasil menjawab problem statement dengan memprediksi harga sewa apartemen berdasarkan fitur-fitur yang ada dan mengidentifikasi fitur-fitur yang paling berpengaruh.
-- Mencapai Goals: Model Random Forest dengan hyperparameter yang dioptimalkan berhasil mencapai tujuan untuk memberikan prediksi harga sewa yang akurat dan mengidentifikasi fitur penting.
-- Dampak dari Solution Statement: Penggunaan beberapa algoritma dan hyperparameter tuning memberikan dampak positif dengan meningkatkan akurasi prediksi dan memungkinkan pemilihan model terbaik. Solusi yang direncanakan memberikan hasil yang signifikan dalam mencapai tujuan proyek.
+
+🧩 Menjawab Problem Statement:
+Model yang dibangun berhasil menjawab problem statement dengan memprediksi biaya asuransi kesehatan berdasarkan fitur-fitur seperti usia, jenis kelamin, BMI, kebiasaan merokok, jumlah anak, dan wilayah tempat tinggal. Selain itu, visualisasi feature importance dari model Gradient Boosting menunjukkan bahwa fitur seperti kebiasaan merokok dan BMI memang memiliki pengaruh signifikan terhadap besarnya biaya asuransi.
+
+🎯 Mencapai Goals:
+Model prediksi regresi yang dikembangkan—melalui K-Nearest Neighbor, Random Forest, dan Gradient Boosting berhasil mencapai tujuan utama, yaitu memberikan prediksi biaya asuransi yang cukup akurat. Model Gradient Boosting dipilih sebagai model terbaik karena memiliki nilai Mean Squared Error (MSE) terendah dan visualisasi prediksi yang paling mendekati nilai aktual. Fitur-fitur yang paling berpengaruh terhadap charges juga berhasil diidentifikasi.
+
+🚀 Dampak dari Solution Statement:
+Pendekatan menggunakan beberapa algoritma regresi memungkinkan perbandingan performa antar model, sehingga membantu dalam memilih model terbaik untuk prediksi. Penggunaan metrik MSE sebagai evaluasi memberikan gambaran yang objektif terhadap tingkat kesalahan prediksi. Secara keseluruhan, solusi yang diterapkan memberikan hasil yang efektif dalam menjawab permasalahan dan mencapai tujuan proyek.
+
 
 ## Kesimpulan
 
-Melalui proses pemodelan dan evaluasi, telah berhasil membangun model yang akurat untuk memprediksi harga sewa apartemen dan mengidentifikasi fitur-fitur yang paling berpengaruh. Model Random Forest terbukti menjadi model terbaik dalam hal akurasi prediksi, dan hyperparameter tuning memainkan peran penting dalam meningkatkan performa model. Dampak dari solusi yang diimplementasikan sangat positif, memenuhi problem statement dan goals yang telah ditetapkan.
+Proyek ini berhasil membangun model prediksi biaya asuransi kesehatan menggunakan algoritma regresi. Gradient Boosting dipilih sebagai model terbaik karena memberikan hasil prediksi paling akurat. Fitur smoker, age, dan BMI terbukti paling berpengaruh terhadap biaya asuransi. Model ini dapat digunakan untuk membantu perusahaan asuransi dalam menetapkan premi secara lebih objektif dan efisien.
