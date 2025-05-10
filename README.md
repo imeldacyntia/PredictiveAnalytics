@@ -69,25 +69,25 @@ Dari gambar di atas disimpulkan bahwa dataset telah terbersihkan dan jumlah samp
 
   #### 2. Visualisasi univariat menggunakan countplot dan histogram untuk melihat distribusi masing-masing fitur.
 
-![Outliner Sebelum](img/UnivariateAnalysis1.png)  
+![UnivariateAnalysis1](img/UnivariateAnalysis1.png)  
 Fitur kategorikal menunjukkan beberapa pola penting. Distribusi sex antara laki-laki dan perempuan relatif seimbang, sehingga model tidak menunjukkan potensi bias terhadap jenis kelamin tertentu. Pada fitur smoker, mayoritas responden merupakan non-smoker, namun proporsi perokok tetap signifikan dan menjadi variabel penting karena memiliki pengaruh besar terhadap biaya asuransi. Sementara itu, distribusi region cukup merata di antara keempat wilayah, dengan sedikit dominasi pada wilayah southeast, yang tetap memberikan representasi geografis yang adil dalam dataset.
 
-![Outliner Setelah](img/UnivariateAnalysis2.png)
+![UnivariateAnalysis2](img/UnivariateAnalysis2.png)
 
 Fitur numerikal juga memberikan insight yang berharga. Distribusi usia (age) cukup merata dengan konsentrasi pada usia dewasa muda hingga pertengahan. BMI terdistribusi hampir normal dengan sedikit skew ke kanan, dan setelah penghapusan outlier, distribusinya terlihat lebih bersih meskipun masih terdapat beberapa individu dengan nilai BMI tinggi. Fitur children menunjukkan bahwa sebagian besar individu memiliki 0 hingga 2 anak, tanpa adanya nilai ekstrem. Terakhir, fitur charges menunjukkan distribusi yang sangat skew ke kanan, menandakan bahwa hanya sebagian kecil individu yang memiliki biaya asuransi sangat tinggi, yang kemungkinan besar berkaitan dengan status merokok atau kondisi kesehatan tertentu.
 
   #### 3. Visualisasi bivariat seperti boxplot dan scatterplot digunakan untuk melihat hubungan antara fitur dan target (charges).
 
-![Outliner Sebelum](img/BivariateAnalysis1.png)  
+![BivariateAnalysis1](img/BivariateAnalysis1.png)  
 Pada variabel sex, rata-rata biaya asuransi pria sedikit lebih tinggi dibanding wanita, namun perbedaannya tidak signifikan dan distribusinya cukup mirip. Variabel smoker menunjukkan pengaruh paling signifikan, di mana perokok memiliki biaya asuransi yang jauh lebih tinggi dibanding non-perokok, dan hampir semua outlier biaya tinggi berasal dari kelompok perokok. Sementara itu, variabel region menunjukkan bahwa distribusi charges relatif serupa di setiap wilayah, tanpa perbedaan signifikan antar region.
 
-![Outliner Setelah](img/BivariateAnalysis2.png)
+![BivariateAnalysis2](img/BivariateAnalysis2.png)
 
 Terdapat korelasi positif antara usia dan charges yaitu semakin tua usia individu, semakin tinggi biaya asuransi yang dikenakan, kemungkinan karena peningkatan risiko kesehatan. Sementara itu, BMI tidak menunjukkan hubungan linier yang kuat dengan charges, namun terdapat beberapa outlier pada BMI tinggi yang menunjukkan potensi biaya lebih besar akibat kondisi seperti obesitas. Untuk variabel children, tidak ditemukan pengaruh signifikan terhadap charges, karena distribusi biaya relatif stabil terlepas dari jumlah anak.
 
   #### 4. Heatmap korelasi antar fitur numerik dilakukan untuk mengidentifikasi kekuatan dan arah hubungan antar variabel.
 
-![Outliner Sebelum](img/Korelasi_variabel_numerikal.png)  
+![Korelasi_variabel_numerikal](img/Korelasi_variabel_numerikal.png)  
 Berdasarkan output heatmap korelasi, terdapat korelasi positif yang cukup kuat antara usia dan charges (0.45), menunjukkan bahwa biaya asuransi cenderung meningkat seiring bertambahnya usia. Sementara itu, BMI (-0.06) dan jumlah anak (0.09) memiliki korelasi sangat lemah terhadap charges, yang menandakan pengaruh keduanya relatif kecil. Selain itu, korelasi antar variabel independen juga rendah, sehingga tidak ditemukan indikasi multikolinearitas yang signifikan dalam data.
 
 ## Data Preparation
@@ -161,33 +161,58 @@ Berikut adalah tabel Kelebihan dan Kekurangan dari ketiga algoritma regresi:
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **K-Nearest Neighbors** | - Sederhana dan mudah diimplementasikan <br> - Tidak memerlukan asumsi distribusi data <br> - Cocok untuk data non-linear                           | - Sensitif terhadap skala dan outlier <br> - Kinerja menurun pada dataset besar karena komputasi prediksi lambat <br> - Tidak memiliki model eksplisit |
 | **Random Forest**       | - Dapat menangani data numerik dan kategorikal <br> - Mengurangi overfitting melalui agregasi banyak pohon <br> - Robust terhadap outlier dan noise | - Lebih lambat dibanding model sederhana <br> - Interpretabilitas terbatas <br> - Ukuran model bisa besar                                              |
-| **Gradient Boosting**   | - Performa prediktif sangat baik <br> - Menangani hubungan kompleks dan non-linear <br> - Dapat dikustomisasi dengan banyak parameter               | - Rentan terhadap overfitting jika tidak dituning <br> - Proses pelatihan lebih lambat <br> - Lebih kompleks dalam tuning parameter                    |
+| **Gradient Boosting**   | - Performa prediktif baik walau tanpa tuning <br> - Menangani hubungan kompleks dan non-linear <br> - Bisa langsung digunakan dengan default param  | - Proses pelatihan relatif lambat <br> - Lebih kompleks dibanding Random Forest <br> - Bisa overfitting jika jumlah estimator terlalu besar            |
 
-##################################BATAS SAYA KERJAKAN===================
 ## Evaluation
 
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
+**Mean Squared Error (MSE)** adalah metrik yang digunakan untuk mengevaluasi seberapa baik model dalam memprediksi data. MSE mengukur seberapa besar kesalahan antara nilai yang diprediksi oleh model dan nilai yang sebenarnya dengan menghitung rata-rata dari selisih kuadrat antara keduanya. Semakin kecil nilai MSE, semakin baik model dalam memprediksi data yang sebenarnya, karena model berhasil meminimalkan kesalahan prediksi. Rumus MSE adalah:
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
+$$
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+$$
 
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+Keterangan:
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
-
-
-**Memilih Model Terbaik Sebagai Solusi**
-
-Berdasarkan evaluasi menggunakan nilai MSE pada data uji, model terbaik dipilih sebagai solusi. Misalnya, jika model Random Forest menunjukkan MSE terendah pada data uji dibandingkan dengan KNN dan AdaBoost, maka model Random Forest dipilih sebagai model terbaik.
+* \$y\_i\$ adalah nilai yang sebenarnya,
+* \$\hat{y}\_i\$ adalah nilai yang diprediksi oleh model,
+* \$n\$ adalah jumlah data yang digunakan.
 
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+**Berikut adalah hasil evaluasi model dalam bentuk tabel:**
 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+| **Model**             | **Train MSE** | **Test MSE**  |
+| --------------------- | ------------- | ------------- |
+| **KNN**               | 19,099,397.13 | 25,944,624.82 |
+| **Random Forest**     | 4,524,854.71  | 19,449,671.35 |
+| **Gradient Boosting** | 12,817,935.84 | 18,014,631.47 |
 
-**---Ini adalah bagian akhir laporan---**
+* Model KNN menghasilkan nilai MSE sebesar **19,099,397.13** pada data latih dan **25,944,624.82** pada data uji, menunjukkan bahwa model ini mengalami overfitting ringan dan kurang akurat dalam memprediksi data baru.
+* Model Random Forest menunjukkan performa terbaik di antara ketiga model dengan nilai MSE yang paling rendah pada data latih yaitu **4,524,854.71**, dan **19,449,671.35** pada data uji.
+* Model Gradient Boosting memberikan performa yang cukup baik dengan MSE sebesar **12,817,935.84** pada data latih dan **18,014,631.47** pada data uji, lebih stabil dibanding KNN namun tidak sebaik Random Forest.
 
-_Catatan:_
+![Perbandingan_MSE_Model](img/Perbandingan_MSE_Model.png) 
 
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+**Model Terbaik** 
+
+Berdasarkan hasil evaluasi, model Gradient Boosting dipilih sebagai model terbaik karena memiliki MSE terendah pada data uji dibandingkan KNN dan performanya lebih stabil. Berikut adalah grafik untuk nilai aktual vs nilai prediksi menggunakan model Gradient Boosting.
+
+![Visualisasi_Gradient_Boosting](img/Visualisasi_Gradient_Boosting.png)
+
+Model Gradient Boosting menunjukkan akurasi yang baik, terutama pada *charges* di bawah 20.000, dengan prediksi mendekati garis referensi. Meski sedikit meleset pada nilai *charges* tinggi, model ini tetap memberikan keseimbangan bias dan variansi yang baik, serta MSE terendah.
+
+**Feature Importance dari Gradient Boosting** 
+
+Berdasarkan analisis feature importance, fitur yang paling memengaruhi biaya asuransi adalah smoker, age, dan BMI. Individu yang merokok, berusia lebih tua, dan memiliki BMI tinggi cenderung membayar biaya asuransi lebih mahal karena memiliki risiko kesehatan yang lebih besar.
+
+![Feature_Importance](img/Feature_Importance.png)
+
+##################################BATAS SAYA KERJAKAN===================
+
+**Evaluasi Terhadap Business Understanding**
+- Menjawab Problem Statement: Model yang dibuat berhasil menjawab problem statement dengan memprediksi harga sewa apartemen berdasarkan fitur-fitur yang ada dan mengidentifikasi fitur-fitur yang paling berpengaruh.
+- Mencapai Goals: Model Random Forest dengan hyperparameter yang dioptimalkan berhasil mencapai tujuan untuk memberikan prediksi harga sewa yang akurat dan mengidentifikasi fitur penting.
+- Dampak dari Solution Statement: Penggunaan beberapa algoritma dan hyperparameter tuning memberikan dampak positif dengan meningkatkan akurasi prediksi dan memungkinkan pemilihan model terbaik. Solusi yang direncanakan memberikan hasil yang signifikan dalam mencapai tujuan proyek.
+
+## Kesimpulan
+
+Melalui proses pemodelan dan evaluasi, telah berhasil membangun model yang akurat untuk memprediksi harga sewa apartemen dan mengidentifikasi fitur-fitur yang paling berpengaruh. Model Random Forest terbukti menjadi model terbaik dalam hal akurasi prediksi, dan hyperparameter tuning memainkan peran penting dalam meningkatkan performa model. Dampak dari solusi yang diimplementasikan sangat positif, memenuhi problem statement dan goals yang telah ditetapkan.
