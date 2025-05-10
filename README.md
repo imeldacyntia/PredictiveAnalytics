@@ -4,14 +4,14 @@
 
 ### Latar Belakang
 
-Dalam beberapa tahun terakhir, biaya asuransi kesehatan mengalami peningkatan yang signifikan, mendorong perusahaan asuransi dan individu untuk mencari solusi prediktif yang lebih akurat dalam perencanaan keuangan. Dengan banyaknya faktor yang memengaruhi biaya asuransi seperti usia, jenis kelamin, indeks massa tubuh (BMI), status merokok, dan wilayah tempat tinggal, penerapan machine learning dapat menjadi pendekatan efektif untuk memprediksi biaya asuransi secara lebih presisi. Model prediktif berbasis data memungkinkan perusahaan untuk menentukan premi secara lebih adil dan membantu individu merencanakan pengeluaran kesehatannya dengan lebih baik (Tajaddodi Nodehi et al., 2023).
+Biaya asuransi kesehatan terus meningkat dari tahun ke tahun, mendorong perusahaan asuransi dan individu untuk mencari pendekatan prediktif yang lebih akurat dalam perencanaan keuangan dan penetapan premi. Berbagai faktor seperti usia, jenis kelamin, indeks massa tubuh (BMI), status merokok, jumlah anak, dan wilayah tempat tinggal diketahui turut memengaruhi besar kecilnya biaya asuransi. Penerapan algoritma machine learning memungkinkan analisis yang lebih presisi terhadap variabel-variabel ini untuk menghasilkan prediksi biaya yang lebih objektif dan berbasis data.
 
-Menurut laporan World Health Organization (2023), pengeluaran kesehatan global meningkat rata-rata 3,9% per tahun sejak 2000, dengan pembiayaan pribadi dan asuransi sebagai dua komponen utama. Sistem prediksi berbasis machine learning berpotensi mempercepat proses analisis dan memberikan estimasi biaya yang lebih cepat dan akurat. Oleh karena itu, membangun model regresi untuk memprediksi biaya asuransi kesehatan berdasarkan data demografis dan gaya hidup menjadi penting dalam mendukung efisiensi sistem kesehatan secara keseluruhan.
+Studi oleh Alhassan dan Batrushi (2022) menunjukkan bahwa penerapan model machine learning secara signifikan dapat meningkatkan akurasi prediksi premi asuransi dibandingkan pendekatan tradisional. Model prediktif ini membantu perusahaan asuransi menentukan premi secara adil dan membantu individu mengelola pengeluaran kesehatannya secara lebih terencana. Selain itu, menurut World Health Organization (2023), pengeluaran kesehatan global meningkat rata-rata 3,9% per tahun sejak tahun 2000, dengan asuransi kesehatan menjadi salah satu komponen pembiayaan utama. Oleh karena itu, membangun model prediksi biaya asuransi berbasis data menjadi langkah penting dalam meningkatkan efisiensi sistem kesehatan secara keseluruhan.
 
 ### Referensi
 
-- Tajaddodi Nodehi, M., Hosseini Khatibani, S., Yazdinejad, M., & Zolfi, S. (2023). Predicting people's health insurance costs using machine learning and ensemble learning methods. Iranian Journal of Insurance Research, 13(1), 1-14. [https://doi.org/10.22056/ijir.2024.01.01](https://doi.org/10.22056/ijir.2024.01.01)
-- World Health Organization. (2023). _Global spending on health: Rising to the pandemic’s challenges_. [https://www.who.int/publications/i/item/9789240076643](https://www.who.int/publications/i/item/9789240076643)
+* Alhassan, I., & Batrushi, B. (2022). Health Insurance Premium Prediction Using Machine Learning Techniques. International Journal of Environmental Research and Public Health, 19(13), 7898. [https://doi.org/10.3390/ijerph19137898](https://doi.org/10.3390/ijerph19137898)
+* World Health Organization. (2023). Global spending on health: Rising to the pandemic’s challenges. [https://www.who.int/publications/i/item/9789240076643](https://www.who.int/publications/i/item/9789240076643)
 
 ## Business Understanding
 
@@ -35,63 +35,70 @@ Untuk mencapai tujuan tersebut, pendekatan berikut akan dilakukan:
 
 ## Data Understanding
 
-Proyek ini menggunakan dataset _Insurance_ yang tersedia secara publik melalui platform [Kaggle](https://www.kaggle.com/datasets/mirichoi0218/insurance). Dataset ini berisi informasi mengenai data demografis dan gaya hidup seseorang serta biaya asuransi kesehatan yang dibayarkan. Data ini sangat cocok digunakan untuk membangun model prediksi regresi karena target variabelnya adalah nilai numerik (biaya asuransi), dan tersedia berbagai fitur yang dapat memengaruhi biaya tersebut.
+Proyek ini menggunakan dataset Insurance yang tersedia secara publik melalui platform Kaggle: [https://www.kaggle.com/datasets/mirichoi0218/insurance](https://www.kaggle.com/datasets/mirichoi0218/insurance). Dataset ini berisi data demografis dan gaya hidup individu serta jumlah biaya asuransi kesehatan yang dibebankan kepada mereka. Karena targetnya berbentuk nilai numerik (charges), dataset ini cocok digunakan untuk membangun model prediksi regresi.
 
-Dataset ini terdiri dari **1.338 baris data** dan **7 kolom**. Setiap baris merepresentasikan satu individu dengan atribut-atribut terkait kesehatan dan demografi.
+Dataset terdiri dari 1.338 baris dan 7 kolom, dengan setiap baris mewakili satu individu. Dari eksplorasi awal, tidak ditemukan nilai hilang (missing value), sehingga data dalam kondisi bersih. Selanjutnya, fitur-fitur dibagi berdasarkan tipe datanya:
 
-### Variabel-variabel pada _Insurance Dataset_ adalah sebagai berikut:
+* Fitur kategorikal: sex, smoker, region
+* Fitur numerikal: age, bmi, children, charges
 
-- **age**: Usia dari pemegang polis asuransi (dalam tahun).
-- **sex**: Jenis kelamin dari pemegang polis (`male` atau `female`).
-- **bmi**: _Body Mass Index_ (Indeks Massa Tubuh) dari individu.
-- **children**: Jumlah tanggungan anak yang dimiliki.
-- **smoker**: Status merokok individu (`yes` atau `no`).
-- **region**: Wilayah tempat tinggal individu di Amerika Serikat (`southwest`, `southeast`, `northwest`, atau `northeast`).
-- **charges**: Biaya yang ditagihkan oleh asuransi (dalam satuan dolar AS)
+Pengecekan dan penanganan outlier dilakukan khususnya pada fitur numerikal menggunakan metode IQR (Interquartile Range). Data yang mengandung outlier telah dibersihkan agar tidak memengaruhi kualitas prediksi.
 
-### Exploratory Data Analysis (EDA)
+### Variabel-variabel pada Insurance Dataset adalah sebagai berikut:
 
-Untuk memahami data lebih dalam, dilakukan beberapa langkah eksplorasi awal, antara lain:
+* age: Usia pemegang polis (dalam tahun).
+* sex: Jenis kelamin pemegang polis (male atau female).
+* bmi: Body Mass Index (indeks massa tubuh).
+* children: Jumlah anak yang menjadi tanggungan.
+* smoker: Status merokok individu (yes atau no).
+* region: Wilayah tempat tinggal di AS (southwest, southeast, northwest, northeast).
+* charges: Biaya yang dibebankan oleh asuransi (dalam USD) – ini adalah target prediksi.
 
-1. **Distribusi Target (`charges`)**
-   Distribusi `charges` bersifat _right-skewed_ (miring ke kanan), menunjukkan bahwa sebagian besar individu membayar premi yang relatif rendah, tetapi ada beberapa outlier dengan biaya sangat tinggi.
+### Rubrik/Kriteria Tambahan (Opsional):
 
-2. **Hubungan antara Fitur dan Target**
+Beberapa tahapan eksplorasi data telah dilakukan untuk memahami karakteristik dataset, antara lain:
 
-   - **smoker** memiliki pengaruh sangat besar terhadap biaya asuransi. Rata-rata biaya untuk perokok jauh lebih tinggi dibandingkan non-perokok.
-   - **bmi** dan **charges** menunjukkan hubungan yang lebih kuat pada kelompok perokok, terutama bagi yang mengalami obesitas.
-   - **age** juga menunjukkan korelasi positif terhadap `charges`: semakin tua seseorang, semakin besar kemungkinan biaya asuransinya.
+* Visualisasi univariat menggunakan histogram dan countplot untuk melihat distribusi masing-masing fitur.
+* Visualisasi bivariat seperti boxplot dan scatterplot digunakan untuk melihat hubungan antara fitur dan target (charges).
+* Heatmap korelasi antar fitur numerik dilakukan untuk mengidentifikasi kekuatan dan arah hubungan antar variabel.
+* Pembersihan data dilakukan dengan menghapus outlier berdasarkan boxplot dan metode IQR.
 
-3. **Visualisasi Data**
-   Beberapa teknik visualisasi yang digunakan antara lain:
-
-   - _Histogram_ untuk distribusi fitur numerik (`age`, `bmi`, `charges`)
-   - _Boxplot_ untuk melihat perbandingan `charges` berdasarkan `smoker`, `sex`, dan `region`
-   - _Pairplot_ dan _correlation heatmap_ untuk melihat korelasi antar fitur numerik
-
-Visualisasi ini membantu memahami pola-pola dalam data dan memberikan wawasan awal tentang fitur mana yang kemungkinan besar berkontribusi terhadap prediksi biaya asuransi.
-
-########################YANG SAYA UBAH####################################
+Tahapan-tahapan tersebut bertujuan untuk meningkatkan pemahaman terhadap struktur data dan mendukung pemodelan yang lebih baik di tahap berikutnya.
 
 ## Data Preparation
 
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
+Tahapan data preparation sangat penting untuk memastikan bahwa data yang digunakan dalam proses pemodelan bersih, relevan, dan berada dalam format yang dapat diproses oleh algoritma machine learning. Pada proyek ini, langkah-langkah data preparation dilakukan secara sistematis dan berurutan sebagai berikut:
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+### 1. Penanganan Outlier
 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+Fitur numerik seperti age, bmi, children, dan charges dianalisis menggunakan boxplot untuk mengidentifikasi outlier.
+Outlier kemudian dihapus menggunakan metode IQR (Interquartile Range) agar tidak memengaruhi distribusi data secara ekstrem dan tidak menyebabkan bias dalam proses pelatihan model.
 
-## Modeling
+📌 Alasan: Outlier dapat mendistorsi distribusi data dan menurunkan performa model regresi karena model berusaha menyesuaikan terhadap nilai-nilai ekstrem.
 
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
+### 2. Encoding Fitur Kategorikal
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+Untuk mengubah fitur kategorikal menjadi numerik:
 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+* sex diubah menjadi 0 untuk female dan 1 untuk male (binary encoding).
+* smoker diubah menjadi 0 untuk no dan 1 untuk yes (binary encoding).
+* region diubah menggunakan one-hot encoding karena memiliki lebih dari dua kategori (southwest, southeast, northwest, northeast).
 
+📌 Alasan: Model machine learning tidak dapat memproses data bertipe kategorikal secara langsung, sehingga fitur kategorikal perlu diubah menjadi bentuk numerik.
+
+### 3. Pembagian Dataset
+
+Dataset dibagi menjadi data latih dan data uji menggunakan train\_test\_split dari sklearn, dengan rasio 80% data latih dan 20% data uji.
+
+📌 Alasan: Pemisahan ini bertujuan untuk mengevaluasi performa model pada data yang belum pernah dilihat sebelumnya, sehingga dapat menilai kemampuan generalisasi model.
+
+### 4. Standardisasi Fitur Numerik
+
+Fitur numerik age, bmi, dan children distandarisasi menggunakan StandardScaler dari sklearn.
+
+📌 Alasan: Standardisasi diperlukan agar setiap fitur berada dalam skala yang sama. Ini sangat penting untuk model seperti KNN dan Gradient Boosting yang sensitif terhadap perbedaan skala antar fitur.
+
+##################################BATAS SAYA KERJAKAN==================================================
 ## Evaluation
 
 Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
