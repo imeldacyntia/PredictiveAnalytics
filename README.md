@@ -56,14 +56,10 @@ Pengecekan dan penanganan outlier dilakukan khususnya pada fitur numerikal mengg
 
 Beberapa tahapan eksplorasi data telah dilakukan untuk memahami karakteristik dataset, antara lain:
 
-  #### 1. Pembersihan data dilakukan dengan menghapus outlier berdasarkan boxplot dan metode IQR.
+  #### 1. Menggunakan visualisasi boxplot untuk melihat apakah terdapat outliers.
 
 ![Outliner Sebelum](img/outliner_sebelum.png)  
 Dari gambar di atas menunjukkan bahwa beberapa fitur numerik yang dianalisis mengandung nilai pencilan (outliers).
-
-![Outliner Setelah](img/outliner_sesudah.png)
-
-Dari gambar di atas disimpulkan bahwa dataset telah terbersihkan dan jumlah sampel yang tersedia sekarang adalah 1191.
 
   #### 2. Visualisasi univariat menggunakan countplot dan histogram untuk melihat distribusi masing-masing fitur.
 
@@ -92,7 +88,10 @@ Berdasarkan output heatmap korelasi, terdapat korelasi positif yang cukup kuat a
 
 Tahapan data preparation sangat penting untuk memastikan bahwa data yang digunakan dalam proses pemodelan bersih, relevan, dan berada dalam format yang dapat diproses oleh algoritma machine learning. Pada proyek ini, langkah-langkah data preparation dilakukan secara sistematis dan berurutan sebagai berikut:
 
-### 1. Encoding Fitur Kategorikal
+### 1. Menangani Outilners
+
+
+### 2. Encoding Fitur Kategorikal
 
 Untuk mengubah fitur kategorikal menjadi numerik:
 
@@ -102,13 +101,13 @@ Untuk mengubah fitur kategorikal menjadi numerik:
 
 📌 Alasan: Model machine learning tidak dapat memproses data bertipe kategorikal secara langsung, sehingga fitur kategorikal perlu diubah menjadi bentuk numerik.
 
-### 2. Pembagian Dataset
+### 3. Pembagian Dataset
 
 Dataset dibagi menjadi data latih dan data uji menggunakan train\_test\_split dari sklearn, dengan rasio 80% data latih dan 20% data uji.
 
 📌 Alasan: Pemisahan ini bertujuan untuk mengevaluasi performa model pada data yang belum pernah dilihat sebelumnya, sehingga dapat menilai kemampuan generalisasi model.
 
-### 3. Standardisasi Fitur Numerik
+### 4. Standardisasi Fitur Numerik
 
 Fitur numerik age, bmi, dan children distandarisasi menggunakan StandardScaler dari sklearn.
 
