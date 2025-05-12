@@ -82,7 +82,7 @@ Terdapat korelasi positif antara usia dan charges yaitu semakin tua usia individ
   #### 4. Heatmap korelasi antar fitur numerik dilakukan untuk mengidentifikasi kekuatan dan arah hubungan antar variabel.
 
 ![Korelasi_variabel_numerikal](img/Korelasi_variabel_numerikal.png)  
-Berdasarkan output heatmap korelasi, terdapat korelasi positif yang cukup kuat antara usia dan charges (0.45), menunjukkan bahwa biaya asuransi cenderung meningkat seiring bertambahnya usia. Sementara itu, BMI (-0.06) dan jumlah anak (0.09) memiliki korelasi sangat lemah terhadap charges, yang menandakan pengaruh keduanya relatif kecil. Selain itu, korelasi antar variabel independen juga rendah, sehingga tidak ditemukan indikasi multikolinearitas yang signifikan dalam data.
+Berdasarkan output heatmap korelasi, terdapat korelasi positif antara usia dan charges (0.30), yang menunjukkan bahwa biaya asuransi cenderung meningkat seiring bertambahnya usia. BMI (0.20) dan jumlah anak (0.07) juga memiliki korelasi positif namun sangat lemah terhadap charges, menandakan bahwa pengaruh keduanya terhadap biaya asuransi relatif kecil. Selain itu, korelasi antar variabel independen juga rendah, sehingga tidak ditemukan indikasi multikolinearitas yang signifikan dalam data.
 
 ## Data Preparation
 
@@ -90,28 +90,37 @@ Tahapan data preparation sangat penting untuk memastikan bahwa data yang digunak
 
 ### 1. Menangani Outilners
 
+Untuk memastikan kualitas data yang baik sebelum pelatihan model, langkah pertama adalah menangani outlier menggunakan metode **IQR (Interquartile Range)**. Langkah ini dilakukan dengan menghitung kuartil pertama (Q1) dan kuartil ketiga (Q3), kemudian menentukan batas bawah dan batas atas menggunakan rumus:
+
+* **Lower Bound** = Q1 - 1.5 × IQR
+* **Upper Bound** = Q3 + 1.5 × IQR
+
+![Outliner Sesudah](img/outliner_sesudah.png)  
+Data yang berada di luar batas ini dianggap sebagai outlier dan dihapus. Setelah penghapusan, visualisasi dengan boxplot dilakukan untuk memastikan bahwa data telah bersih dari pencilan. Hasilnya, jumlah sampel data berkurang dari 1338 menjadi 1191 baris, yang membantu menciptakan distribusi data yang lebih stabil dan representatif untuk pelatihan model.
 
 ### 2. Encoding Fitur Kategorikal
 
-Untuk mengubah fitur kategorikal menjadi numerik:
+Untuk memungkinkan algoritma machine learning memproses data kategorikal, dilakukan transformasi sebagai berikut:
 
-* sex diubah menjadi 0 untuk female dan 1 untuk male (binary encoding).
-* smoker diubah menjadi 0 untuk no dan 1 untuk yes (binary encoding).
-* region diubah menggunakan one-hot encoding karena memiliki lebih dari dua kategori (southwest, southeast, northwest, northeast).
+* Kolom sex dan smoker diencoding secara biner:
 
-📌 Alasan: Model machine learning tidak dapat memproses data bertipe kategorikal secara langsung, sehingga fitur kategorikal perlu diubah menjadi bentuk numerik.
+  * sex: female → 0, male → 1
+  * smoker: no → 0, yes → 1
+
+* Kolom region memiliki lebih dari dua kategori sehingga diterapkan one-hot encoding tanpa menghapus dummy pertama (drop\_first=False) untuk mempertahankan interpretabilitas model.
 
 ### 3. Pembagian Dataset
 
-Dataset dibagi menjadi data latih dan data uji menggunakan train\_test\_split dari sklearn, dengan rasio 80% data latih dan 20% data uji.
+Dataset kemudian dibagi menjadi data latih dan data uji dengan rasio 80:20 menggunakan fungsi train_test_split dari scikit-learn. Langkah ini bertujuan untuk mengevaluasi kinerja model secara adil dan menghindari overfitting.
 
-📌 Alasan: Pemisahan ini bertujuan untuk mengevaluasi performa model pada data yang belum pernah dilihat sebelumnya, sehingga dapat menilai kemampuan generalisasi model.
+Hasil pembagian:
+
+* Jumlah data pada data latih: 952
+* Jumlah data pada data uji : 239
 
 ### 4. Standardisasi Fitur Numerik
 
-Fitur numerik age, bmi, dan children distandarisasi menggunakan StandardScaler dari sklearn.
-
-📌 Alasan: Standardisasi diperlukan agar setiap fitur berada dalam skala yang sama. Ini sangat penting untuk model seperti KNN dan Gradient Boosting yang sensitif terhadap perbedaan skala antar fitur.
+Kolom numerik seperti age, bmi, dan children distandarisasi menggunakan StandardScaler agar memiliki skala yang seragam (mean = 0 dan std = 1). Langkah ini sangat penting terutama untuk algoritma seperti K-Nearest Neighbor atau Gradient Boosting yang sensitif terhadap skala fitur.
 
 ## Modeling
 
