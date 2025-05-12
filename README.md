@@ -124,32 +124,57 @@ Kolom numerik seperti age, bmi, dan children distandarisasi menggunakan Standard
 
 ## Modeling
 
+Pada tahap ini, dilakukan pembangunan model regresi untuk memprediksi biaya asuransi (charges) berdasarkan fitur-fitur demografis dan gaya hidup. Tiga algoritma machine learning diterapkan dan dibandingkan performanya, yaitu:
+
+* K-Nearest Neighbors (KNN) Regressor
+* Random Forest Regressor
+* Gradient Boosting Regressor
+
+Pemilihan ketiga model ini bertujuan untuk membandingkan performa algoritma instance-based, ensemble berbasis bagging, dan ensemble berbasis boosting.
+
 **Tahap Modeling**
 
-- Menyiapkan DataFrame untuk Analisis Masing-Masing Model
-    ```python
-    models = pd.DataFrame(index=['train_mse', 'test_mse'],
+* Menyiapkan DataFrame untuk Analisis Masing-Masing Model
+
+```python
+models = pd.DataFrame(index=['train_mse', 'test_mse'],
                       columns=['KNN', 'RandomForest', 'GradientBoosting'])
-    ```
-   Langkah pertama adalah membuat sebuah DataFrame bernama models yang akan digunakan untuk mencatat nilai Mean Squared Error (MSE) baik untuk data pelatihan maupun data pengujian dari tiga model regresi: KNN, Random Forest, dan Gradient Boosting.
-- Melatih model KNN
-    ```python
-    knn = KNeighborsRegressor(n_neighbors=5)
-    knn.fit(X_train, y_train)
-    ```
-  Model K-Nearest Neighbors diterapkan dengan nilai tetangga terdekat (n_neighbors) sebanyak 5. Model ini dilatih menggunakan data pelatihan X_train dan y_train, kemudian nilai MSE-nya dicatat pada DataFrame models.
-- Melatih model Random Forest
-    ```python
-    rf = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
-    rf.fit(X_train, y_train)
-    ```
-    Model RandomForestRegressor digunakan dengan parameter jumlah pohon sebanyak 100 (n_estimators=100), kedalaman maksimum pohon 10 (max_depth=10), dan seed acak (random_state=42) untuk hasil yang reprodusibel. Model ini juga dilatih dengan data pelatihan yang sama dan hasil evaluasinya dicatat.
-- Melatih model Ada Gradient Boosting
-    ```python
-    gb = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
-    gb.fit(X_train, y_train)
-    ```
-    Model Gradient Boosting diterapkan dengan jumlah estimasi sebanyak 100, laju pembelajaran (learning_rate) sebesar 0.1, dan kedalaman maksimum 3. Sama seperti model sebelumnya, model ini dilatih menggunakan data pelatihan dan hasil MSE-nya disimpan dalam DataFrame models.
+```
+
+Langkah pertama adalah membuat sebuah DataFrame bernama models yang akan digunakan untuk mencatat nilai Mean Squared Error (MSE) baik untuk data pelatihan maupun data pengujian dari tiga model regresi: KNN, Random Forest, dan Gradient Boosting.
+
+### 1. K-Nearest Neighbors (KNN)
+
+KNN merupakan algoritma non-parametrik yang tidak membentuk model eksplisit. Proses prediksi dilakukan dengan mencari k tetangga terdekat (dalam kasus ini k=5) dari titik data baru berdasarkan jarak Euclidean, lalu menghitung rata-rata nilai charges dari tetangga tersebut.
+
+Model ini bekerja baik untuk data dengan struktur lokal dan non-linear, namun sangat sensitif terhadap skala fitur dan noise. Oleh karena itu, fitur numerik distandarisasi sebelum pelatihan.
+
+```python
+knn = KNeighborsRegressor(n_neighbors=5)
+knn.fit(X_train, y_train)
+```
+
+### 2. Random Forest Regressor
+
+Random Forest merupakan teknik ensemble berbasis bagging yang membangun banyak pohon keputusan (decision trees) pada subset acak dari data dan fitur. Setiap pohon dilatih secara independen, dan prediksi akhir diperoleh dari rata-rata seluruh pohon. Dengan pendekatan ini, Random Forest cenderung mengurangi overfitting dan mampu menangani hubungan non-linear serta fitur campuran.
+
+Pada proyek ini, digunakan 100 pohon (n\_estimators=100) dengan kedalaman maksimum 10 (max\_depth=10).
+
+```python
+rf = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
+rf.fit(X_train, y_train)
+```
+
+### 3. Gradient Boosting Regressor
+
+Gradient Boosting adalah algoritma boosting yang membangun model secara bertahap (sequential), bukan paralel seperti Random Forest. Setiap pohon baru dilatih untuk memperbaiki kesalahan (residual) dari model sebelumnya. Proses optimasi dilakukan dengan menurunkan nilai fungsi loss (Mean Squared Error) menggunakan pendekatan gradient descent.
+
+Model ini sangat baik dalam menangkap pola kompleks, namun sensitif terhadap overfitting jika jumlah estimator terlalu banyak. Oleh karena itu, digunakan parameter moderat yaitu 100 estimator (n\_estimators=100), learning\_rate=0.1, dan max\_depth=3.
+
+```python
+gb = GradientBoostingRegressor(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
+gb.fit(X_train, y_train)
+```
 
 **Tahapan dan Parameter yang Digunakan**
 
