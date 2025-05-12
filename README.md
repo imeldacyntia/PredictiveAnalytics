@@ -120,7 +120,7 @@ Hasil pembagian:
 
 ### 4. Standardisasi Fitur Numerik
 
-Kolom numerik seperti age, bmi, dan children distandarisasi menggunakan StandardScaler agar memiliki skala yang seragam (mean = 0 dan std = 1). Langkah ini sangat penting terutama untuk algoritma seperti K-Nearest Neighbor atau Gradient Boosting yang sensitif terhadap skala fitur.
+Kolom numerik seperti age, bmi, dan children distandarisasi menggunakan StandardScaler agar memiliki skala yang seragam. Langkah ini sangat penting terutama untuk algoritma seperti K-Nearest Neighbor atau Gradient Boosting yang sensitif terhadap skala fitur.
 
 ## Modeling
 
