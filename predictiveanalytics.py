@@ -275,7 +275,7 @@ plt.show()
 
 Pada bagian ini kita akan melakukan tiga tahap persiapan data, yaitu:
 
-1. **Menangasi Outilners**
+1. **Menangasi Outliers**
 
 2. **Encoding Fitur Kategorikal**
 
