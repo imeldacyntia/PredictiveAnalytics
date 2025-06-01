@@ -1,5 +1,7 @@
 # Laporan Proyek Machine Learning - Imelda Cyntia
 
+![Rating](img/rating.png)
+
 ## Domain Proyek : Kesehatan
 
 ### Latar Belakang
